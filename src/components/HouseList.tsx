@@ -1,3 +1,5 @@
+import Container from 'react-bootstrap/esm/Container';
+import Table from 'react-bootstrap/esm/Table';
 import useHouses from '../hooks/useHouses';
 
 const HouseList = () => {
@@ -5,13 +7,13 @@ const HouseList = () => {
     const houses = useHouses();
 
     return (
-        <div>
+        <Container>
             <div className="row mb-2">
                 <h5 className="themeFontColor text-center">
                     Houses currently on the market
                 </h5>
             </div>
-            <table className="table table-hover">
+            <Table className="table table-hover">
                 <thead>
                     <tr>
                         <th>Address</th>
@@ -28,8 +30,8 @@ const HouseList = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table>
-        </div>
+            </Table>
+        </Container>
     )
 }
 
