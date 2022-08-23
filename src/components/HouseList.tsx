@@ -1,10 +1,16 @@
 import Container from 'react-bootstrap/esm/Container';
 import Table from 'react-bootstrap/esm/Table';
+import { useNavigate } from 'react-router-dom';
+import ApiStatus from '../api/ApiStatus';
+import { currencyFormatter } from '../config';
 import useHouses from '../hooks/useHouses';
 
 const HouseList = () => {
+    const nav = useNavigate();
+    const { data, status, isSuccess } = useHouses();
 
-    const houses = useHouses();
+    if (!isSuccess)
+        return <ApiStatus status={status} />
 
     return (
         <Container>
@@ -22,11 +28,11 @@ const HouseList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {houses.map((h) => (
-                        <tr key={h.id}>
+                    {data && data.map((h) => (
+                        <tr key={h.id} onClick={() => nav(`/house/${h.id}`)}>
                             <th>{h.address}</th>
                             <th>{h.country}</th>
-                            <th>{h.price}</th>
+                            <th>{currencyFormatter.format(h.price)}</th>
                         </tr>
                     ))}
                 </tbody>

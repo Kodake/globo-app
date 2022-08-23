@@ -4,13 +4,20 @@ import HouseList from './components/HouseList';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/esm/Container';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HouseDetail from './components/HouseDetail';
 
 function App() {
   return (
-    <Container className="container">
-      <Header subtitle='Providing houses all over the world' />
-      <HouseList />
-    </Container>
+    <BrowserRouter>
+      <Container className="container">
+        <Header subtitle='Providing houses all over the world' />
+        <Routes>
+          <Route path='/' element={<HouseList />}></Route>
+          <Route path='/house/:id' element={<HouseDetail />}></Route>
+        </Routes>
+      </Container>
+    </BrowserRouter>
   );
 }
 
