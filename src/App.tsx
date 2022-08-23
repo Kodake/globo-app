@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/esm/Container';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HouseDetail from './components/HouseDetail';
+import HouseAdd from './components/HouseAdd';
+import HouseEdit from './components/HouseEdit';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Routes>
           <Route path='/' element={<HouseList />}></Route>
           <Route path='/house/:id' element={<HouseDetail />}></Route>
+          <Route path='/house/add' element={<HouseAdd />}></Route>
+          <Route path='/house/edit/:id' element={<HouseEdit />}></Route>
         </Routes>
       </Container>
     </BrowserRouter>

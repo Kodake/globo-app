@@ -1,6 +1,6 @@
 import Container from 'react-bootstrap/esm/Container';
 import Table from 'react-bootstrap/esm/Table';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ApiStatus from '../api/ApiStatus';
 import { currencyFormatter } from '../config';
 import useHouses from '../hooks/useHouses';
@@ -37,6 +37,9 @@ const HouseList = () => {
                     ))}
                 </tbody>
             </Table>
+            <Link className='btn btn-primary' to='/house/add'>
+                Add
+            </Link>
         </Container>
     )
 }

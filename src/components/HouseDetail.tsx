@@ -1,8 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import ApiStatus from '../api/ApiStatus';
 import { currencyFormatter } from '../config';
-import { useFetchHouse } from '../hooks/useHouses';
+import { useDeleteHouse, useFetchHouse } from '../hooks/useHouses';
 import defaultPhoto from './defaultPhoto';
 
 const HouseDetail = () => {
@@ -11,6 +11,9 @@ const HouseDetail = () => {
     const houseId = parseInt(id);
 
     const { data, status, isSuccess } = useFetchHouse(houseId);
+
+    const deleteHouse = useDeleteHouse();
+    
     if (!isSuccess) return <ApiStatus status={status} />
     if (!data) return <div>House not found</div>
 
@@ -25,7 +28,29 @@ const HouseDetail = () => {
                             alt="House pic"
                         />
                     </div>
+                    <div className="row mt-3">
+                        <div className="col-2">
+                            <Link
+                                className="btn btn-primary w-100"
+                                to={`/house/edit/${data.id}`}
+                            >
+                                Edit
+                            </Link>
+                        </div>
+                        <div className="col-2">
+                            <button
+                                className="btn btn-danger w-100"
+                                onClick={() => {
+                                    if (window.confirm("Are you sure?"))
+                                        deleteHouse.mutate(data);
+                                }}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
                 <div className="col-6">
                     <div className="row mt-2">
                         <h5 className="col-12">{data.country}</h5>
