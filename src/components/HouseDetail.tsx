@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import ApiStatus from '../api/ApiStatus';
 import { currencyFormatter } from '../config';
 import { useDeleteHouse, useFetchHouse } from '../hooks/useHouses';
+import Bids from './Bids';
 import defaultPhoto from './defaultPhoto';
 
 const HouseDetail = () => {
@@ -13,7 +14,7 @@ const HouseDetail = () => {
     const { data, status, isSuccess } = useFetchHouse(houseId);
 
     const deleteHouse = useDeleteHouse();
-    
+
     if (!isSuccess) return <ApiStatus status={status} />
     if (!data) return <div>House not found</div>
 
@@ -28,26 +29,22 @@ const HouseDetail = () => {
                             alt="House pic"
                         />
                     </div>
-                    <div className="row mt-3">
-                        <div className="col-2">
-                            <Link
-                                className="btn btn-primary w-100"
-                                to={`/house/edit/${data.id}`}
-                            >
-                                Edit
-                            </Link>
-                        </div>
-                        <div className="col-2">
-                            <button
-                                className="btn btn-danger w-100"
-                                onClick={() => {
-                                    if (window.confirm("Are you sure?"))
-                                        deleteHouse.mutate(data);
-                                }}
-                            >
-                                Delete
-                            </button>
-                        </div>
+                    <div className="row mt-3 d-grid gap-2 d-md-flex justify-content-md-end p-2">
+                        <Link
+                            className="btn btn-primary btn-sm"
+                            to={`/house/edit/${data.id}`}
+                        >
+                            Edit
+                        </Link>
+                        <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => {
+                                if (window.confirm("Are you sure?"))
+                                    deleteHouse.mutate(data);
+                            }}
+                        >
+                            Delete
+                        </button>
                     </div>
                 </div>
 
@@ -66,6 +63,7 @@ const HouseDetail = () => {
                     <div className="row">
                         <div className="col-12 mt-3">{data.description}</div>
                     </div>
+                    <Bids house={data} />
                 </div>
             </div>
         </>
