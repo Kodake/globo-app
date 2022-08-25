@@ -1,5 +1,5 @@
 const config = {
-    baseApiURL: 'https://localhost:4000'
+    baseApiURL: ''
 }
 
 const currencyFormatter = Intl.NumberFormat('en-US', {

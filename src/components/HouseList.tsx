@@ -4,22 +4,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import ApiStatus from '../api/ApiStatus';
 import { currencyFormatter } from '../config';
 import useHouses from '../hooks/useHouses';
+import useFetchUser from '../hooks/useUsers';
 
 const HouseList = () => {
     const nav = useNavigate();
     const { data, status, isSuccess } = useHouses();
+    const { data: userClaims } = useFetchUser();
 
     if (!isSuccess)
         return <ApiStatus status={status} />
 
     return (
         <Container>
-            <div className="row mb-2">
-                <h5 className="themeFontColor text-center">
+            <div className='row mb-2'>
+                <h5 className='themeFontColor text-center'>
                     Houses currently on the market
                 </h5>
             </div>
-            <Table className="table table-hover">
+            <Table className='table table-hover'>
                 <thead>
                     <tr>
                         <th>Address</th>
@@ -37,9 +39,12 @@ const HouseList = () => {
                     ))}
                 </tbody>
             </Table>
-            <Link className='btn btn-primary' to='/house/add'>
-                Add
-            </Link>
+            {userClaims &&
+                userClaims.find((c) => c.type === "role" && c.value === "Admin") && (
+                    <Link className='btn btn-primary' to='/house/add'>
+                        Add
+                    </Link>
+                )}
         </Container>
     )
 }

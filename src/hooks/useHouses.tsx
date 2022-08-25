@@ -8,7 +8,7 @@ import Problem from '../types/problem';
 
 const useHouses = () => {
     return useQuery<House[], AxiosError>('houses', () =>
-        axios.get(`${config.baseApiURL}/houses`)
+        axios.get(`${config.baseApiURL}/houses`, { withCredentials: true })
             .then((resp) => resp.data)
     );
 };
