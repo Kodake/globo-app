@@ -4,6 +4,12 @@ import { useAddBids, useFetchBids } from '../hooks/useBids';
 import { Bid } from '../types/bid';
 import ApiStatus from '../api/ApiStatus';
 import { currencyFormatter } from '../config';
+import Table from 'react-bootstrap/esm/Table';
+import Form from 'react-bootstrap/esm/Form';
+import Button from 'react-bootstrap/esm/Button';
+import Row from 'react-bootstrap/esm/Row';
+import InputGroup from 'react-bootstrap/esm/InputGroup';
+import Col from 'react-bootstrap/esm/Col';
 
 type Args = {
     house: House;
@@ -31,9 +37,9 @@ const Bids = ({ house }: Args) => {
 
     return (
         <>
-            <div className='row mt-4'>
-                <div className='col-12'>
-                    <table className='table table-sm'>
+            <Row xs={2} md={4} lg={6} className='mt-4'>
+                <Col xs={12} md={12} lg={12}>
+                    <Table className='table table-sm'>
                         <thead>
                             <tr>
                                 <th>Bidder</th>
@@ -49,12 +55,12 @@ const Bids = ({ house }: Args) => {
                                     </tr>
                                 ))}
                         </tbody>
-                    </table>
-                </div>
-            </div>
-            <div className='row'>
-                <div className='input-group mb-3'>
-                    <input
+                    </Table>
+                </Col>
+            </Row>
+            <Row xs={2} md={4} lg={6}>
+                <InputGroup className='input-group mb-3'>
+                    <Form.Control
                         id='bidder'
                         type='text'
                         className='form-control'
@@ -63,7 +69,7 @@ const Bids = ({ house }: Args) => {
                         value={bid.bidder}
                         onChange={(e) => setBid({ ...bid, bidder: e.target.value })} />
 
-                    <input
+                    <Form.Control
                         id='amount'
                         type='number'
                         className='form-control'
@@ -72,9 +78,9 @@ const Bids = ({ house }: Args) => {
                         value={bid.amount}
                         onChange={(e) => setBid({ ...bid, amount: parseInt(e.target.value) })} />
 
-                    <button className='btn btn-primary' onClick={() => onBidSubmitClick()}>Add</button>
-                </div>
-            </div>
+                    <Button className='btn btn-primary' onClick={() => onBidSubmitClick()}>Add</Button>
+                </InputGroup >
+            </Row>
         </>
     )
 }
