@@ -1,6 +1,10 @@
-import { useState } from "react";
-import { House } from "../types/house";
-import toBase64 from "../utils/toBae64";
+import { useState } from 'react';
+import Image from 'react-bootstrap/esm/Image';
+import Button from 'react-bootstrap/esm/Button';
+import Form from 'react-bootstrap/esm/Form';
+import { House } from '../types/house';
+import toBase64 from '../utils/toBae64';
+import Row from 'react-bootstrap/esm/Row';
 
 type Args = {
     house: House;
@@ -27,74 +31,71 @@ const HouseForm = ({ house, submitted }: Args) => {
     };
 
     return (
-        <form className="mt-2">
-            <div className="form-group">
-                <label htmlFor="address">Address</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Address"
+        <Form className='mt-2'>
+            <Form.Group>
+                <Form.Label htmlFor='address'>Address</Form.Label>
+                <Form.Control
+                    type='text'
+                    placeholder='Address'
                     value={houseState.address}
                     onChange={(e) =>
                         setHouseState({ ...houseState, address: e.target.value })
                     }
                 />
-            </div>
-            <div className="form-group mt-2">
-                <label htmlFor="country">Country</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Country"
+            </Form.Group>
+            <Form.Group className='mt-2'>
+                <Form.Label htmlFor='country'>Country</Form.Label>
+                <Form.Control
+                    type='text'
+                    placeholder='Country'
                     value={houseState.country}
                     onChange={(e) =>
                         setHouseState({ ...houseState, country: e.target.value })
                     }
                 />
-            </div>
-            <div className="form-group mt-2">
-                <label htmlFor="description">Description</label>
-                <textarea
-                    className="form-control"
-                    placeholder="Description"
+            </Form.Group>
+            <Form.Group className='mt-2'>
+                <Form.Label htmlFor='description'>Description</Form.Label>
+                <Form.Control
+                    as='textarea' rows={3}
+                    placeholder='Description'
                     value={houseState.description}
                     onChange={(e) =>
                         setHouseState({ ...houseState, description: e.target.value })
                     }
                 />
-            </div>
-            <div className="form-group mt-2">
-                <label htmlFor="price">Price</label>
-                <input
-                    type="number"
-                    className="form-control"
-                    placeholder="Price"
+            </Form.Group>
+            <Form.Group className='mt-2'>
+                <Form.Label htmlFor='price'>Price</Form.Label>
+                <Form.Control
+                    type='number'
+                    placeholder='Price'
                     value={houseState.price}
                     onChange={(e) =>
                         setHouseState({ ...houseState, price: parseInt(e.target.value) })
                     }
                 />
-            </div>
-            <div className="form-group mt-2">
-                <label htmlFor="image">Image</label>
-                <input
-                    id="image"
-                    type="file"
-                    className="form-control"
+            </Form.Group>
+            <Form.Group className='mt-2'>
+                <Form.Label htmlFor='image'>Image</Form.Label>
+                <Form.Control
+                    id='image'
+                    type='file'
                     onChange={onFileSelected}
                 />
-            </div>
-            <div className="mt-2">
-                <img src={houseState.photo}></img>
-            </div>
-            <button
-                className="btn btn-primary mt-2"
+            </Form.Group>
+            <Row sm={10} md={8} lg={8} className='mt-2'>
+                <Image src={houseState.photo} />
+            </Row>
+            <Button
+                variant='primary'
+                className='mt-2'
                 disabled={!houseState.address || !houseState.country}
                 onClick={onSubmit}
             >
                 Submit
-            </button>
-        </form>
+            </Button>
+        </Form>
     );
 }
 
